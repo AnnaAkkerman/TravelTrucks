@@ -1,9 +1,14 @@
 import { useState } from "react";
 import css from "./Filter.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFilters } from "../../redux/filter/selectors";
+import { setFilter, updateFilters } from "../../redux/filter/slice";
 
-const Filter = ({ onSearch }) => {
-  const [location, setLocation] = useState("");
-  const [filters, setFilters] = useState({
+const Filter = () => {
+  const dispatch = useDispatch();
+
+  const [localFilters, setLocalFilters] = useState({
+    location: "",
     AC: false,
     Automatic: false,
     Kitchen: false,
@@ -14,19 +19,25 @@ const Filter = ({ onSearch }) => {
     Alcove: false,
   });
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
+  const handleFilterChange = (filter) => {
+    setLocalFilters((prev) => {
+      const updatedFilters = {
+        ...prev,
+        [filter]: !prev[filter],
+      };
+      return updatedFilters;
+    });
   };
 
-  const handleFilterChange = (filter) => {
-    setFilters((prev) => ({
+  const handleLocationChange = (e) => {
+    setLocalFilters((prev) => ({
       ...prev,
-      [filter]: !prev[filter],
+      location: e.target.value,
     }));
   };
 
   const handleSearchClick = () => {
-    onSearch({ location, ...filters });
+    dispatch(updateFilters(localFilters)); // Обновляем фильтры в Redux
   };
 
   return (
@@ -36,7 +47,7 @@ const Filter = ({ onSearch }) => {
         <input
           type="text"
           id="location"
-          value={location}
+          value={localFilters.location}
           onChange={handleLocationChange}
         />
       </div>
@@ -44,31 +55,37 @@ const Filter = ({ onSearch }) => {
         <div className={css.filterGroup}>
           <h3>Vehicle equipment</h3>
           <button
-            className={`${css.filter} ${filters.AC ? css.active : ""}`}
+            className={`${css.filter} ${localFilters.AC ? css.active : ""}`}
             onClick={() => handleFilterChange("AC")}
           >
             AC
           </button>
           <button
-            className={`${css.filter} ${filters.Automatic ? css.active : ""}`}
+            className={`${css.filter} ${
+              localFilters.Automatic ? css.active : ""
+            }`}
             onClick={() => handleFilterChange("Automatic")}
           >
             Automatic
           </button>
           <button
-            className={`${css.filter} ${filters.Kitchen ? css.active : ""}`}
+            className={`${css.filter} ${
+              localFilters.Kitchen ? css.active : ""
+            }`}
             onClick={() => handleFilterChange("Kitchen")}
           >
             Kitchen
           </button>
           <button
-            className={`${css.filter} ${filters.TV ? css.active : ""}`}
+            className={`${css.filter} ${localFilters.TV ? css.active : ""}`}
             onClick={() => handleFilterChange("TV")}
           >
             TV
           </button>
           <button
-            className={`${css.filter} ${filters.Bathroom ? css.active : ""}`}
+            className={`${css.filter} ${
+              localFilters.Bathroom ? css.active : ""
+            }`}
             onClick={() => handleFilterChange("Bathroom")}
           >
             Bathroom
@@ -78,21 +95,21 @@ const Filter = ({ onSearch }) => {
         <div className={css.filterGroup}>
           <h3>Vehicle type</h3>
           <button
-            className={`${css.filter} ${filters.Van ? css.active : ""}`}
+            className={`${css.filter} ${localFilters.Van ? css.active : ""}`}
             onClick={() => handleFilterChange("Van")}
           >
             Van
           </button>
           <button
             className={`${css.filter} ${
-              filters.FullyIntegrated ? css.active : ""
+              localFilters.FullyIntegrated ? css.active : ""
             }`}
             onClick={() => handleFilterChange("FullyIntegrated")}
           >
             Fully Integrated
           </button>
           <button
-            className={`${css.filter} ${filters.Alcove ? css.active : ""}`}
+            className={`${css.filter} ${localFilters.Alcove ? css.active : ""}`}
             onClick={() => handleFilterChange("Alcove")}
           >
             Alcove

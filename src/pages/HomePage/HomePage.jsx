@@ -1,6 +1,3 @@
-import CamperList from "../../components/CamperList/CamperList";
-import { useSearch } from "../../hooks/useSearch";
-import { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 
 const HomePage = () => {

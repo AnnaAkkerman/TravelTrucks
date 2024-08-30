@@ -1,31 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { selectCampers } from "../campers/selectors";
 
-// export const selectCampers = (state) => state.campers.items;
-
-// export const selectFilteredCampers = createSelector(
-//   [selectCampers, (state) => state.filters.selectedFilters],
-//   (campers, selectedFilters) => {
-//     if (selectedFilters.length === 0) {
-//       return campers;
-//     }
-//     return campers.filter((camper) =>
-//       selectedFilters.every((filter) => camper[filter.toLowerCase()] === true)
-//     );
-//   }
-// );
-
-// export const selectFilteredCampers = createSelector(
-//   [selectCampers, selectNameFilter],
-//   (campers, filters) => {
-//     return campers.filter((contact) =>
-//       contact.name.toLowerCase().includes(filters.toLowerCase())
-//     );
-//   }
-// );
+export const selectFilters = (state) => state.filters;
 
 export const selectFilteredCampers = createSelector(
-  (state) => state.campersData.campers.items,
-  (state) => state.filters.filters,
+  [selectCampers, selectFilters],
   (campers, filters) => {
     return campers.filter((camper) => {
       const matchesLocation = filters.location
