@@ -11,14 +11,24 @@ export const selectFilteredCampers = createSelector(
         ? camper.location.toLowerCase().includes(filters.location.toLowerCase())
         : true;
       const matchesAC = filters.AC ? camper.AC === true : true;
-      const matchesAutomatic = filters.Automatic
-        ? camper.transmission === "Automatic"
+      const matchesTransmission = filters.transmission
+        ? camper.transmission === filters.transmission
         : true;
+      const matchesForm = filters.form ? camper.form === filters.form : true;
       const matchesKitchen = filters.Kitchen ? camper.kitchen === true : true;
       const matchesTV = filters.TV ? camper.TV === true : true;
       const matchesBathroom = filters.Bathroom
         ? camper.bathroom === true
         : true;
+      const matchesMicrowave = filters.microwave
+        ? camper.microwave === true
+        : true;
+      const matchesGas = filters.gas ? camper.gas === true : true;
+      const matchesRadio = filters.radio ? camper.radio === true : true;
+      const matchesRefrigerator = filters.refrigerator
+        ? camper.refrigerator === true
+        : true;
+
       const matchesVan = filters.Van ? camper.type === "Van" : true;
       const matchesFullyIntegrated = filters.FullyIntegrated
         ? camper.type === "Fully Integrated"
@@ -28,10 +38,15 @@ export const selectFilteredCampers = createSelector(
       return (
         matchesLocation &&
         matchesAC &&
-        matchesAutomatic &&
+        matchesTransmission &&
+        matchesForm &&
         matchesKitchen &&
         matchesTV &&
         matchesBathroom &&
+        matchesMicrowave &&
+        matchesGas &&
+        matchesRadio &&
+        matchesRefrigerator &&
         matchesVan &&
         matchesFullyIntegrated &&
         matchesAlcove

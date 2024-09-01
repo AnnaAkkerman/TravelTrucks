@@ -1,8 +1,20 @@
+.headerContainer {
+  width: 1440px;
+  border-bottom: 1px solid var(--badges);
+  padding: 24px 64px;
+  background: var(--inputs);
+  display: flex;
+  gap: 450px;
+  box-sizing: border-box;
+}
+
 .link {
-  padding: 8px 16px;
   text-decoration: none;
-  color: black;
   font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--main);
 }
 
 .active {
@@ -10,8 +22,6 @@
 }
 
 .nav {
-  padding: 20px;
-  border-bottom: 3px solid #b1b0b0;
-  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.4);
-  margin-bottom: 20px;
+  display: flex;
+  gap: 92px;
 }

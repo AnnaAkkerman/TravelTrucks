@@ -18,12 +18,11 @@ const CamperReviews = lazy(() =>
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
-      <Logo />
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/campers" element={<CampersPage />} />
-        <Route path="/campers/:camperId" element={<CamperDetailsPage />}>
+        <Route path="/catalog" element={<CampersPage />} />
+        <Route path="/catalog/:camperId" element={<CamperDetailsPage />}>
           <Route path="features" element={<CamperFeatures />} />
           <Route path="reviews" element={<CamperReviews />} />
         </Route>

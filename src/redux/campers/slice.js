@@ -6,7 +6,9 @@ export const INITIAL_STATE_campers = {
     items: [],
     loading: false,
     error: null,
+    visibleItems: 4,
   },
+  favorites: JSON.parse(localStorage.getItem("favorites")) || [],
 };
 
 const handlePending = (state) => {
@@ -27,6 +29,22 @@ const campersSlice = createSlice({
       state.campers.loading = false;
       state.campers.error = null;
     },
+    loadMoreCampers: (state) => {
+      state.campers.visibleItems += 3; // увеличиваем видимые элементы
+    },
+    resetVisibleItems: (state) => {
+      state.campers.visibleItems = 3; // сбрасываем к исходному значению
+    },
+    addToFavorites: (state, action) => {
+      state.favorites.push(action.payload);
+      localStorage.setItem("favorites", JSON.stringify(state.favorites));
+    },
+    removeFromFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (favCamper) => favCamper.id !== action.payload.id
+      );
+      localStorage.setItem("favorites", JSON.stringify(state.favorites));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,5 +58,11 @@ const campersSlice = createSlice({
   },
 });
 
-export const { clearCampers } = campersSlice.actions;
+export const {
+  clearCampers,
+  addToFavorites,
+  removeFromFavorites,
+  loadMoreCampers,
+  resetVisibleItems,
+} = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

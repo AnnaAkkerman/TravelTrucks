@@ -3,30 +3,34 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   location: "",
   AC: false,
-  Automatic: false,
+  transmission: "",
+  form: "",
   Kitchen: false,
   TV: false,
   Bathroom: false,
-  Van: false,
-  FullyIntegrated: false,
-  Alcove: false,
+  microwave: false,
+  gas: false,
+  radio: false,
+  refrigerator: false,
 };
 
 const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    updateFilters: (state, action) => {
+    clearFilters: () => initialState, // Сбрасываем состояние
+    updateFilters(state, action) {
       return {
         ...state,
-        ...action.payload,
+        ...action.payload, // Обновляет только измененные фильтры
       };
     },
-    resetFilters: (state) => {
-      return initialState; // сброс всех фильтров к начальному состоянию
+    applyFilters(state, action) {
+      state = { ...initialState, ...action.payload }; // Обновляет состояние фильтров на основе новых данных
     },
   },
 });
 
-export const { updateFilters, setFilter, resetFilters } = filterSlice.actions;
+export const { applyFilters, clearFilters, updateFilters } =
+  filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

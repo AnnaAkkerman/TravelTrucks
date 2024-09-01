@@ -1,22 +1,24 @@
 import { useState } from "react";
 import css from "./Filter.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { selectFilters } from "../../redux/filter/selectors";
-import { setFilter, updateFilters } from "../../redux/filter/slice";
+import { useDispatch } from "react-redux";
+import { clearFilters, updateFilters } from "../../redux/filter/slice";
+import { resetVisibleItems } from "../../redux/campers/slice";
+import sprite from "../../../public/sprite.svg";
 
 const Filter = () => {
   const dispatch = useDispatch();
-
   const [localFilters, setLocalFilters] = useState({
     location: "",
     AC: false,
-    Automatic: false,
+    transmission: "",
     Kitchen: false,
     TV: false,
     Bathroom: false,
-    Van: false,
-    FullyIntegrated: false,
-    Alcove: false,
+    microwave: false,
+    gas: false,
+    radio: false,
+    refrigerator: false,
+    form: "",
   });
 
   const handleFilterChange = (filter) => {
@@ -36,89 +38,208 @@ const Filter = () => {
     }));
   };
 
+  const handleTransmissionChange = (transmission) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      transmission: prev.transmission === transmission ? "" : transmission,
+    }));
+  };
+
+  const handleFormChange = (form) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      form: prev.form === form ? "" : form,
+    }));
+  };
+
   const handleSearchClick = () => {
-    dispatch(updateFilters(localFilters)); // Обновляем фильтры в Redux
+    setLocalFilters({});
+    dispatch(clearFilters());
+    dispatch(updateFilters(localFilters));
+    dispatch(resetVisibleItems()); // Сбросьте количество видимых элементов
   };
 
   return (
     <aside className={css.filters}>
       <div className={css.location}>
-        <label htmlFor="location">Location</label>
+        <label htmlFor="location" className={css.locationLabel}>
+          Location
+        </label>
         <input
           type="text"
           id="location"
-          value={localFilters.location}
+          className={css.locationContent}
+          value={localFilters.location || ""}
+          placeholder="City"
           onChange={handleLocationChange}
         />
+        <svg className={css.iconMap} width={20} height={20}>
+          <use href={`${sprite}#icon-Map`} />
+        </svg>
       </div>
       <div>
-        <div className={css.filterGroup}>
-          <h3>Vehicle equipment</h3>
-          <button
-            className={`${css.filter} ${localFilters.AC ? css.active : ""}`}
-            onClick={() => handleFilterChange("AC")}
-          >
-            AC
-          </button>
-          <button
-            className={`${css.filter} ${
-              localFilters.Automatic ? css.active : ""
-            }`}
-            onClick={() => handleFilterChange("Automatic")}
-          >
-            Automatic
-          </button>
-          <button
-            className={`${css.filter} ${
-              localFilters.Kitchen ? css.active : ""
-            }`}
-            onClick={() => handleFilterChange("Kitchen")}
-          >
-            Kitchen
-          </button>
-          <button
-            className={`${css.filter} ${localFilters.TV ? css.active : ""}`}
-            onClick={() => handleFilterChange("TV")}
-          >
-            TV
-          </button>
-          <button
-            className={`${css.filter} ${
-              localFilters.Bathroom ? css.active : ""
-            }`}
-            onClick={() => handleFilterChange("Bathroom")}
-          >
-            Bathroom
-          </button>
+        <h2 className={css.filterTitle}>Filters</h2>
+        <div>
+          <h3 className={css.filterGroupTitle}>Vehicle equipment</h3>
+          <ul className={css.filterGroupList}>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.AC ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("AC")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-wind`} />
+                </svg>
+                AC
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.transmission === "automatic" ? css.active : ""
+                }`}
+                onClick={() => handleTransmissionChange("automatic")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-diagram`} />
+                </svg>
+                Automatic
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.Kitchen ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("Kitchen")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-cup-hot`} />
+                </svg>
+                Kitchen
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.TV ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("TV")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-tv`} />
+                </svg>
+                TV
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.Bathroom ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("Bathroom")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-bi_droplet`} />
+                </svg>
+                Bathroom
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.microwave ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("microwave")}
+              >
+                Microwave
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.gas ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("gas")}
+              >
+                Gas
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.radio ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("radio")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-ui-radios`} />
+                </svg>
+                Radio
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.refrigerator ? css.active : ""
+                }`}
+                onClick={() => handleFilterChange("refrigerator")}
+              >
+                Refrigerator
+              </button>
+            </li>
+          </ul>
         </div>
-
-        <div className={css.filterGroup}>
-          <h3>Vehicle type</h3>
-          <button
-            className={`${css.filter} ${localFilters.Van ? css.active : ""}`}
-            onClick={() => handleFilterChange("Van")}
-          >
-            Van
-          </button>
-          <button
-            className={`${css.filter} ${
-              localFilters.FullyIntegrated ? css.active : ""
-            }`}
-            onClick={() => handleFilterChange("FullyIntegrated")}
-          >
-            Fully Integrated
-          </button>
-          <button
-            className={`${css.filter} ${localFilters.Alcove ? css.active : ""}`}
-            onClick={() => handleFilterChange("Alcove")}
-          >
-            Alcove
-          </button>
+        <div>
+          <h3 className={css.filterFormTitle}>Vehicle type</h3>
+          <ul className={css.filterGroupList}>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.form === "van" ? css.active : ""
+                }`}
+                onClick={() => handleFormChange("van")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-bi_grid-1x2`} />
+                </svg>
+                Van
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.form === "fullyIntegrated" ? css.active : ""
+                }`}
+                onClick={() => handleFormChange("fullyIntegrated")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-bi_grid`} />
+                </svg>
+                Fully Integrated
+              </button>
+            </li>
+            <li>
+              <button
+                className={`${css.filterBtn} ${
+                  localFilters.form === "alcove" ? css.active : ""
+                }`}
+                onClick={() => handleFormChange("alcove")}
+              >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#icon-bi_grid-3x3-gap`} />
+                </svg>
+                Alcove
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
 
       <button className={css.searchBtn} onClick={handleSearchClick}>
-        Поиск
+        Search
       </button>
     </aside>
   );
