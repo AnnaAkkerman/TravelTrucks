@@ -4,6 +4,7 @@ import {
   addToFavorites,
   loadMoreCampers,
   removeFromFavorites,
+  resetVisibleItems,
 } from "../../redux/campers/slice";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +13,7 @@ import {
 } from "../../redux/campers/selectors";
 import sprite from "../../../public/sprite.svg";
 import Feature from "../Feature/Feature";
+import { useEffect } from "react";
 
 const CamperList = ({ campers }) => {
   const location = useLocation();
@@ -19,6 +21,10 @@ const CamperList = ({ campers }) => {
   const visibleItems = useSelector(selectVisibleCampers);
   const favorites = useSelector(selectFavorites);
   const visibleCampers = campers.slice(0, visibleItems);
+
+  useEffect(() => {
+    dispatch(resetVisibleItems()); // Сброс состояния при первой загрузке
+  }, [dispatch]);
 
   const handleFavoriteToggle = (camper) => {
     const isFavorite = favorites.some(

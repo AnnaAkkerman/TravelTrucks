@@ -117,10 +117,4 @@ const bookingSchema = Yup.object().shape({
     ),
 });
 
-const FORM_INITIAL_VALUES = {
-  name: "",
-  email: "",
-  bookingDate: "",
-};
-
 export default BookingForm;

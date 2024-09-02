@@ -56,7 +56,7 @@ const Filter = () => {
     setLocalFilters({});
     dispatch(clearFilters());
     dispatch(updateFilters(localFilters));
-    dispatch(resetVisibleItems()); // Сбросьте количество видимых элементов
+    dispatch(resetVisibleItems());
   };
 
   return (

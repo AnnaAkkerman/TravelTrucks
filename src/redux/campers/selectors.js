@@ -1,5 +1,3 @@
-import { createSelector } from "@reduxjs/toolkit";
-
 export const selectCampers = (state) => state.campersData.campers.items;
 export const selectVisibleCampers = (state) =>
   state.campersData.campers.visibleItems;

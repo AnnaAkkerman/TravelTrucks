@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import {
   Link,
   useParams,
@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import css from "./CamperDetailsPage.module.css";
-import CamperFeatures from "../../components/CamperFeatures/CamperFeatures.jsx";
 import BookingForm from "../../components/BookingForm/BookingForm.jsx";
 import { fetchCamperDetailsById } from "../../redux/campers/operations.js";
 import sprite from "../../../public/sprite.svg";

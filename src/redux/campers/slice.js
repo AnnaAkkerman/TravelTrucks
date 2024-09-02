@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { fetchCampers } from "./operations";
 
 export const INITIAL_STATE_campers = {
@@ -30,10 +30,10 @@ const campersSlice = createSlice({
       state.campers.error = null;
     },
     loadMoreCampers: (state) => {
-      state.campers.visibleItems += 3; // увеличиваем видимые элементы
+      state.campers.visibleItems += 3; 
     },
     resetVisibleItems: (state) => {
-      state.campers.visibleItems = 3; // сбрасываем к исходному значению
+      state.campers.visibleItems = 4; 
     },
     addToFavorites: (state, action) => {
       state.favorites.push(action.payload);

@@ -18,15 +18,15 @@ const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    clearFilters: () => initialState, // Сбрасываем состояние
+    clearFilters: () => initialState,
     updateFilters(state, action) {
       return {
         ...state,
-        ...action.payload, // Обновляет только измененные фильтры
+        ...action.payload,
       };
     },
     applyFilters(state, action) {
-      state = { ...initialState, ...action.payload }; // Обновляет состояние фильтров на основе новых данных
+      state = { ...initialState, ...action.payload };
     },
   },
 });
