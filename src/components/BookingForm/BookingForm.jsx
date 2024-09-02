@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import enGB from "date-fns/locale/en-GB";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 registerLocale("en-GB", enGB);
 
@@ -81,6 +81,7 @@ const BookingForm = () => {
             <button className={css.send_button} type="submit">
               Send
             </button>
+            <Toaster />
           </Form>
         )}
       </Formik>

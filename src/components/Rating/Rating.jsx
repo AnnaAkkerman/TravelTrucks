@@ -1,20 +1,22 @@
-import css from "./Rating.module.css"; // Создайте этот файл CSS для стилей
+import css from "./Rating.module.css";
+import sprite from "../../../public/sprite.svg";
 
 const Rating = ({ rating }) => {
-  const maxRating = 5; // Максимальное количество звездочек
+  const maxRating = 5;
 
-  // Создаем массив с количеством звездочек
   const stars = Array.from({ length: maxRating }, (_, index) => index + 1);
 
   return (
     <div className={css.ratingContainer}>
       {stars.map((star) => (
-        <span
+        <svg
           key={star}
           className={`${css.star} ${star <= rating ? css.filled : ""}`}
+          width="16"
+          height="16"
         >
-          ★
-        </span>
+          <use href={`${sprite}#icon-starDefault`} />
+        </svg>
       ))}
     </div>
   );

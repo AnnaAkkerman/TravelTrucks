@@ -5,19 +5,20 @@ import {
   Outlet,
   useLocation,
   useNavigate,
+  NavLink,
 } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-import { HiArrowLeft } from "react-icons/hi";
 import css from "./CamperDetailsPage.module.css";
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures.jsx";
 import BookingForm from "../../components/BookingForm/BookingForm.jsx";
 import { fetchCamperDetailsById } from "../../redux/campers/operations.js";
+import sprite from "../../../public/sprite.svg";
+import clsx from "clsx";
 
 const CamperDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedTab, setSelectedTab] = useState("features"); // Управляет отображением по умолчанию
   const location = useLocation();
-  const backLink = useRef(location.state?.from ?? "/");
   const { camperId } = useParams();
   const [camperDetails, setCamperDetails] = useState(null);
   const navigate = useNavigate();
@@ -51,6 +52,10 @@ const CamperDetailsPage = () => {
     }
   }, [camperId, location.pathname, navigate]);
 
+  const activeLink = ({ isActive }) => {
+    return clsx(css.detailsLink, isActive && css.active);
+  };
+
   return (
     <main>
       <div className={css.container}>
@@ -58,18 +63,30 @@ const CamperDetailsPage = () => {
         {camperDetails !== null && (
           <div className={css.camper}>
             <div className={css.camperContainer}>
-              <h1>{camperDetails.name}</h1>
-              <div>
-                <p>{camperDetails.rating}</p>
-                <Link
-                  to={`/campers/${camperDetails.id}`}
-                  state={{ from: location }}
-                >
-                  <p>({camperDetails.reviews.length} Reviews)</p>
-                </Link>
-                <p>{camperDetails.location}</p>
+              <h1 className={css.camperName}>{camperDetails.name}</h1>
+              <div className={css.ratingContainer}>
+                <div className={css.ratingAndReviews}>
+                  <svg className={css.star} width="16" height="16">
+                    <use href={`${sprite}#icon-starDefault`} />
+                  </svg>
+                  <p>{camperDetails.rating}</p>
+                  <Link
+                    to={`/campers/${camperDetails.id}`}
+                    state={{ from: location }}
+                  >
+                    <p>({camperDetails.reviews.length} Reviews)</p>
+                  </Link>
+                </div>
+                <div className={css.locationContainer}>
+                  <svg className={css.iconMap} width="16" height="16">
+                    <use href={`${sprite}#icon-Map`} />
+                  </svg>
+                  <p>{camperDetails.location}</p>
+                </div>
               </div>
-              <p>&euro;{Number(camperDetails.price).toFixed(2)}</p>
+              <p className={css.camperPrice}>
+                &euro;{Number(camperDetails.price).toFixed(2)}
+              </p>
             </div>
             <ul className={css.camperList}>
               {Array.isArray(camperDetails.gallery) &&
@@ -90,14 +107,22 @@ const CamperDetailsPage = () => {
         <div className={css.camperInformation}>
           <ul className={css.detailsList}>
             <li className={css.detailsItem}>
-              <Link to="features" onClick={() => setSelectedTab("features")}>
+              <NavLink
+                className={activeLink}
+                to="features"
+                onClick={() => setSelectedTab("features")}
+              >
                 Features
-              </Link>
+              </NavLink>
             </li>
             <li className={css.detailsItem}>
-              <Link to="reviews" onClick={() => setSelectedTab("reviews")}>
+              <NavLink
+                className={activeLink}
+                to="reviews"
+                onClick={() => setSelectedTab("reviews")}
+              >
                 Reviews
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

@@ -11,6 +11,7 @@ import {
   selectVisibleCampers,
 } from "../../redux/campers/selectors";
 import sprite from "../../../public/sprite.svg";
+import Feature from "../Feature/Feature";
 
 const CamperList = ({ campers }) => {
   const location = useLocation();
@@ -87,39 +88,16 @@ const CamperList = ({ campers }) => {
                             <p>({camper.reviews.length} Reviews)</p>
                           </Link>
                         </div>
-                        <p className={css.cardLocation}>{camper.location}</p>
+                        <div className={css.locationContainer}>
+                          <svg className={css.iconMap} width="16" height="16">
+                            <use href={`${sprite}#icon-Map`} />
+                          </svg>
+                          <p className={css.cardLocation}>{camper.location}</p>
+                        </div>
                       </div>
                     </div>
                     <p className={css.description}>{camper.description}</p>
-                    <ul className={css.cardDetails}>
-                      <li className={css.cardDetailsItem}>
-                        {camper.transmission}
-                      </li>
-                      {camper.AC && <li className={css.cardDetailsItem}>AC</li>}
-                      {camper.kitchen && (
-                        <li className={css.cardDetailsItem}>Kitchen</li>
-                      )}
-                      {camper.TV && <li className={css.cardDetailsItem}>TV</li>}
-                      {camper.bathroom && (
-                        <li className={css.cardDetailsItem}>Bathroom</li>
-                      )}
-                      {camper.gas && (
-                        <li className={css.cardDetailsItem}>Gas</li>
-                      )}
-                      {camper.radio && (
-                        <li className={css.cardDetailsItem}>Radio</li>
-                      )}
-                      {camper.refrigerator && (
-                        <li className={css.cardDetailsItem}>Refrigerator</li>
-                      )}
-                      {camper.water && (
-                        <li className={css.cardDetailsItem}>Water</li>
-                      )}
-                      {camper.microwave && (
-                        <li className={css.cardDetailsItem}>Microwave</li>
-                      )}
-                      <li className={css.cardDetailsItem}>{camper.engine}</li>
-                    </ul>
+                    <Feature camperDetails={camper} />
                     <Link
                       to={`/catalog/${camper.id}`}
                       state={{ from: location }}

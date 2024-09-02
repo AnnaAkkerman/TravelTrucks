@@ -1,9 +1,9 @@
 .camperContainer {
-  display: flex;
-  gap: 40px;
-  flex-direction: column;
   width: 631px;
   padding: 44px 52px;
+  background: var(--inputs);
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .equipmentTitle {
@@ -19,7 +19,7 @@
 .equipmentTitle::after {
   content: "";
   position: absolute;
-  left: 315px;
+  left: 262px;
   bottom: -24px;
   transform: translateX(-50%);
   width: 100%;
@@ -32,6 +32,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 527px;
 }
 
 .equipmentDetails {

@@ -154,6 +154,9 @@ const Filter = () => {
                 }`}
                 onClick={() => handleFilterChange("microwave")}
               >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#streamline--microwave`} />
+                </svg>
                 Microwave
               </button>
             </li>
@@ -164,6 +167,9 @@ const Filter = () => {
                 }`}
                 onClick={() => handleFilterChange("gas")}
               >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#iconoir--gas`} />
+                </svg>
                 Gas
               </button>
             </li>
@@ -187,6 +193,9 @@ const Filter = () => {
                 }`}
                 onClick={() => handleFilterChange("refrigerator")}
               >
+                <svg className={css.svgIconPlus} width={32} height={32}>
+                  <use href={`${sprite}#mdi--truck-refrigerator`} />
+                </svg>
                 Refrigerator
               </button>
             </li>

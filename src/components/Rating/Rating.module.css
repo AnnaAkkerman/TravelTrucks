@@ -1,14 +1,15 @@
 .ratingContainer {
   display: inline-flex;
+  width: 96px;
 }
 
 .star {
-  font-size: 24px;
-  color: gray;
-  margin-right: 2px;
-  transition: color 0.3s;
+  width: 16px;
+  height: 16px;
+  --color1: var(--badges);
+  margin-right: 4px;
 }
 
 .filled {
-  color: gold;
+  --color1: var(--rating);
 }

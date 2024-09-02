@@ -4,6 +4,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.iconMap {
+  margin-right: 4px;
+}
+
+.locationContainer {
+  display: flex;
+  align-items: center;
+}
+
 .description {
   white-space: nowrap;
   overflow: hidden;
@@ -55,6 +65,7 @@
 .cardDetailsTitle {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .cardPriceAndFavourite {
@@ -79,10 +90,12 @@
 .ratingAndStarContainer {
   display: flex;
   text-decoration: underline;
+  align-items: center;
 }
 
 .star {
-  fill: var(--rating);
+  --color1: var(--rating);
+  margin-right: 4px;
 }
 
 .cardDetails {
@@ -94,8 +107,16 @@
 .cardDetailsItem {
   border-radius: 100px;
   padding: 12px 18px;
-  background: var(--badges);
-  mix-blend-mode: multiply;
+  max-width: 143px;
+  background-color: var(--badges);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--main);
+  text-transform: capitalize;
 }
 
 .showMoreBtn {

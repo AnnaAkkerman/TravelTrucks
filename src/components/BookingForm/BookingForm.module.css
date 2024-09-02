@@ -3,8 +3,8 @@
   flex-direction: column;
   border: 1px solid var(--gray-light);
   border-radius: 10px;
-  padding: 44px;
-  width: 641px;
+  padding: 44px 57px;
+  max-width: 641px;
 }
 
 .client_title {
@@ -33,9 +33,10 @@
   border: none;
   border-radius: 12px;
   padding: 18px 18px;
-  width: 527px;
+  width: 525px;
   height: 60px;
   background-color: var(--inputs);
+  box-sizing: border-box;
 }
 
 .input_comment {
@@ -48,6 +49,7 @@
 
 .send_button {
   display: block;
+  border: none;
   border-radius: 200px;
   width: 173px;
   height: 56px;
